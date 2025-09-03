@@ -714,14 +714,9 @@ class AccountMove(models.Model):
     def _compute_tax_totals(self):
         # Adaptar el contexto para que el método de impuestos pueda recuperar el registro de factura
         for move in self:
-            # Pasar el id de la factura al contexto para que lo use account.tax
             ctx = self.env.context.copy()
-            ctx.update({"active_id": move.id, "active_model": move._name})
-            move.with_context(ctx)._compute_tax_totals_base()
-
-    def _compute_tax_totals_base(self):
-        # Llamada original al super
-        return super()._compute_tax_totals()
+            ctx.update({'active_id': move.id, 'active_model': move._name})
+            super(AccountMove, move.with_context(ctx))._compute_tax_totals()
 
     @api.onchange("foreign_rate")
     def _onchange_foreign_rate(self):
