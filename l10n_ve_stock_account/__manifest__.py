@@ -7,7 +7,7 @@
     "author": "binaural-dev",
     "website": "https://www.binauraldev.com",
     "category": "Stock Account",
-    "version": "17.0.0.1.8",
+    "version": "17.0.0.1.9",
     "depends": [
         "l10n_ve_stock",
         "l10n_ve_invoice",
@@ -23,6 +23,7 @@
         "data/ir_cron.xml",
         "data/ir_sequence.xml",
         "data/transfer_reason.xml",
+        
         "views/account_move_views.xml",
         "wizard/picking_invoice_wizard.xml",
         "views/stock_picking_guide_dispatch_views.xml",
