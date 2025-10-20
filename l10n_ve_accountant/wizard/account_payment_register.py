@@ -1,4 +1,5 @@
 from odoo import api, fields, models, _
+from odoo.tools.float_utils import float_round
 
 import logging
 _logger = logging.getLogger(__name__)
@@ -132,6 +133,7 @@ class AccountPaymentRegister(models.TransientModel):
         :param batch_result:    A batch returned by '_get_batches'.
         :return:                An amount in the currency of the wizard.
         """
+        
         self.ensure_one()
         comp_curr = self.company_id.currency_id
         if self.source_currency_id == self.currency_id:
@@ -156,7 +158,8 @@ class AccountPaymentRegister(models.TransientModel):
                 abs(
                     sum(
                         comp_curr._convert(
-                            aml.amount_residual,
+                            # aml.amount_residual,
+                            self.foreign_total_billed_vef, 
                             self.currency_id,
                             self.company_id,
                             self.payment_date,
