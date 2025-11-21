@@ -1,5 +1,4 @@
-from odoo import models, api, _
-from odoo.exceptions import UserError, ValidationError
+from odoo import models
 
 
 class IrUIView(models.Model):
