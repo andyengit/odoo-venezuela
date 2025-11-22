@@ -1,5 +1,6 @@
-from odoo import models, fields, api
 import logging
+
+from odoo import api, models
 
 _logger = logging.getLogger(__name__)
 
@@ -12,16 +13,21 @@ class ResCurrencyRate(models.Model):
         """
         Compute the rate and inverse rate for the given currency and date.
 
-        If the foreign currency is USD then the rate will be the inverse company rate and the
-        inverse rate will be the company rate, Else both rates will be the company rate.
+        If the foreign currency is USD then the rate will be the inverse
+        company rate and the inverse rate will be the company rate, Else
+        both rates will be the company rate.
 
-        This is done because the foreign rate will be the rate that is gonna be shown to the user
-        and the inverse rate will be the rate that will be used as factor to multiply for the
-        computation of the foreign amounts.
+        This is done because the foreign rate will be the rate that
+        is gonna be shown to the user and the inverse rate will be the
+        rate that will be used as factor to multiply for the computation
+        of the foreign amounts.
 
-        The logic is that if the foreign currency is VEF then we will be always multiplying by the
-        value the user uses and see as the rate, but if the foreign currency is USD then we will be
-        always multiplying by the inverse rate because the user will see the rate as the inverse
+        The logic is that if the foreign currency is VEF then we will be
+        always multiplying by the
+        value the user uses and see as the rate, but if the foreign
+        currency is USD then we will be
+        always multiplying by the inverse rate because the user will
+        see the rate as the inverse
         rate.
 
         Parameters
@@ -29,26 +35,34 @@ class ResCurrencyRate(models.Model):
         foreign_currency_id : int
             The id of the foreign currency.
         rate_date : date
-            The date of the rate that is gonna be searched for the given currency
+            The date of the rate that is gonna be searched for the
+             given currency
             (foreign_currency_id).
 
         Returns
         -------
         dict
-            A dictionary with the rate and inverse rate for the given currency and date.
+            A dictionary with the rate and inverse rate for the given currency
+            and date.
         """
         rates = self.env["res.currency.rate"].search(
             [
                 ("currency_id", "=", foreign_currency_id),
                 ("company_id", "=", self.env.company.id),
                 ("name", "<=", rate_date),
-            ], order='name desc', limit=1
+            ],
+            order="name desc",
+            limit=1,
         )
         if not rates:
-            rates = self.env['res.currency.rate'].search([
-                ("currency_id", "=", foreign_currency_id),
-                ("company_id", "=", self.env.company.id),
-            ], order='name asc', limit=1)
+            rates = self.env["res.currency.rate"].search(
+                [
+                    ("currency_id", "=", foreign_currency_id),
+                    ("company_id", "=", self.env.company.id),
+                ],
+                order="name asc",
+                limit=1,
+            )
         if not rates:
             return {}
         rate = rates[0]
@@ -61,13 +75,17 @@ class ResCurrencyRate(models.Model):
                 "foreign_inverse_rate": rate.company_rate,
             }
         else:
-            return {"foreign_rate": rate.company_rate, "foreign_inverse_rate": rate.company_rate}
+            return {
+                "foreign_rate": rate.company_rate,
+                "foreign_inverse_rate": rate.company_rate,
+            }
 
     @api.model
     def compute_inverse_rate(self, rate):
         """
         Compute the inverse rate for the given rate.
-        The inverse rate will be the inverse of the given rate if the foreign currency is USD, else
+        The inverse rate will be the inverse of the given rate if
+        the foreign currency is USD, else
         the inverse rate will be the same as the given rate.
 
         Parameters

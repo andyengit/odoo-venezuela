@@ -1,7 +1,7 @@
-from odoo import api, fields, models, _
-from odoo.exceptions import UserError, ValidationError
-
 import logging
+
+from odoo import _, fields, models
+from odoo.exceptions import ValidationError
 
 _logger = logging.getLogger(__name__)
 
@@ -12,7 +12,7 @@ class ResCompany(models.Model):
     currency_foreign_id = fields.Many2one(
         "res.currency",
         string="Currency Foreign",
-        help="Currency Foreign for the company"
+        help="Currency Foreign for the company",
     )
 
     def write(self, vals):
@@ -25,7 +25,8 @@ class ResCompany(models.Model):
             if lines:
                 raise ValidationError(
                     _(
-                        "The currency already has accounting movements, you cannot deactivate this foreign currency"
+                        "The currency already has accounting movements,\
+                         you cannot deactivate this foreign currency"
                     )
                 )
         return res

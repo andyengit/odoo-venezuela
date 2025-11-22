@@ -1,18 +1,25 @@
-from odoo import models, fields, api, _
-from odoo.exceptions import UserError, ValidationError
+from odoo import fields, models
 
 
 class ResCurrency(models.Model):
     _inherit = "res.currency"
 
-    def _convert(self, from_amount, to_currency, company=None, date=None, round=True, custom_rate=0.0):
+    def _convert(
+        self,
+        from_amount,
+        to_currency,
+        company=None,
+        date=None,
+        round=True,
+        custom_rate=0.0,
+    ):  # noqa: A002 builtin-argument-shadowing
         """Returns the converted amount of ``from_amount``` from the currency
-           ``self`` to the currency ``to_currency`` for the given ``date`` and
-           company.
+        ``self`` to the currency ``to_currency`` for the given ``date`` and
+        company.
 
-           :param company: The company from which we retrieve the convertion rate
-           :param date: The nearest date from which we retriev the conversion rate.
-           :param round: Round the result or not
+        :param company: The company from which we retrieve the convertion rate
+        :param date: The nearest date from which we retriev the conversion rate.
+        :param round: Round the result or not
         """
         if date is None:
             date = fields.Date.today()
@@ -28,13 +35,13 @@ class ResCurrency(models.Model):
             to_amount = from_amount
         elif from_amount:
             if custom_rate > 0:
-                to_amount = from_amount * custom_rate 
+                to_amount = from_amount * custom_rate
             else:
-                to_amount = from_amount * self._get_conversion_rate(self, to_currency, company, date)
+                to_amount = from_amount * self._get_conversion_rate(
+                    self, to_currency, company, date
+                )
         else:
             return 0.0
 
         # apply rounding
         return to_currency.round(to_amount) if round else to_amount
-    
-
