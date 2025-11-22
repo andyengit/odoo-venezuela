@@ -1,4 +1,5 @@
 import logging
+
 from odoo import fields
 from odoo.tests import TransactionCase, tagged
 from odoo.tools import float_round
@@ -85,7 +86,6 @@ class TestResCurrencyRate(TransactionCase):
         self._setup_main_company()
         self._setup_2nd_company()
 
-
     def test_date_up_to_last_rate(self):
         """
         Test that the method returns the last rate before or on the given date.
@@ -107,11 +107,15 @@ class TestResCurrencyRate(TransactionCase):
             )
         )
         self.assertEqual(
-            float_round(rate_vef["foreign_rate"], precision_digits=3), 120.439, "Rate should be 120.439 for 2025-07-29"
+            float_round(rate_vef["foreign_rate"], precision_digits=3),
+            120.439,
+            "Rate should be 120.439 for 2025-07-29",
         )
 
         self.assertEqual(
-            float_round(rate_usd["foreign_rate"], precision_digits=3), 120.439, "Rate should be 120.439 for 2025-07-29"
+            float_round(rate_usd["foreign_rate"], precision_digits=3),
+            120.439,
+            "Rate should be 120.439 for 2025-07-29",
         )
 
     def test_date_before_to_first_rate(self):
@@ -138,11 +142,15 @@ class TestResCurrencyRate(TransactionCase):
         )
 
         self.assertEqual(
-            float_round(rate_vef["foreign_rate"], precision_digits=3), 118.439, "Rate should be 118.439 for 2025-07-17"
+            float_round(rate_vef["foreign_rate"], precision_digits=3),
+            118.439,
+            "Rate should be 118.439 for 2025-07-17",
         )
 
         self.assertEqual(
-            float_round(rate_usd["foreign_rate"], precision_digits=3), 118.439, "Rate should be 118.439 for 2025-07-17"
+            float_round(rate_usd["foreign_rate"], precision_digits=3),
+            118.439,
+            "Rate should be 118.439 for 2025-07-17",
         )
 
     def test_date_equal_to_a_rate_date(self):
@@ -167,9 +175,13 @@ class TestResCurrencyRate(TransactionCase):
             )
         )
         self.assertEqual(
-            float_round(rate_vef["foreign_rate"], precision_digits=3), 119.439, "Rate should be 119.439 for 2025-07-21"
+            float_round(rate_vef["foreign_rate"], precision_digits=3),
+            119.439,
+            "Rate should be 119.439 for 2025-07-21",
         )
 
         self.assertEqual(
-            float_round(rate_usd["foreign_rate"], precision_digits=3), 119.439, "Rate should be 119.439 for 2025-07-21"
+            float_round(rate_usd["foreign_rate"], precision_digits=3),
+            119.439,
+            "Rate should be 119.439 for 2025-07-21",
         )
