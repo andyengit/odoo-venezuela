@@ -18,10 +18,10 @@ odoo_version: 18.0
 org_name: Odoo Community Association (OCA)
 org_slug: OCA
 rebel_module_groups: []
-repo_description: currency
-repo_name: currency
-repo_slug: currency
-repo_website: https://github.com/OCA/currency
+repo_description: odoo-venezuela
+repo_name: odoo-venezuela
+repo_slug: odoo-venezuela
+repo_website: https://binauraldev.com
 use_pyproject_toml: true
 use_ruff: true
 
