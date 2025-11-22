@@ -13,7 +13,7 @@
     "data": ["security/ir.model.access.csv", "views/res_config_settings_views.xml"],
     "assets": {
         "web.assets_backend": [
-            "l10n_ve_base/static/src/core/debug/debug_menu_items.js",
+            "l10n_ve_base/static/src/core/debug/debug_menu_items.esm.js",
         ],
     },
 }
