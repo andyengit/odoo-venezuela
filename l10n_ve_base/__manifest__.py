@@ -4,7 +4,7 @@
         Módulo Base de la localización de Venezuela
     """,
     "license": "LGPL-3",
-    "author": ["binaural-dev", "Odoo Community Association (OCA)"],
+    "author": "binaural-dev, Odoo Community Association (OCA)",
     "website": "https://github.com/binaural-dev/odoo-venezuela",
     "category": "Technical",
     "version": "18.0.1.0.0",
